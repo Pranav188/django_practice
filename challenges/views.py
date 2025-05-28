@@ -1,6 +1,6 @@
 from django.shortcuts import redirect
 from django.http import HttpResponse, HttpResponseNotFound
-
+from django.urls import reverse
 monthly_challenges = {
     "jan": "no bitches?",
     "feb": "lmao",
@@ -21,7 +21,8 @@ def func_month_number(response, month):
     if month > len(months):
         return HttpResponseNotFound("Invalid month number")
     redirect_month = months[month - 1]
-    return redirect('/challenges/' + redirect_month)
+    redirect_link = reverse('pranav_website', args=[redirect_month])
+    return redirect(redirect_link)
 
 def func_month(response, month):
     try:
