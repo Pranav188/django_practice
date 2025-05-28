@@ -1,9 +1,32 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-# Create your views here.
+from django.shortcuts import redirect
+from django.http import HttpResponse, HttpResponseNotFound
 
-def index(request):
-    return HttpResponse("this link works, this is january month")
+monthly_challenges = {
+    "jan": "no bitches?",
+    "feb": "lmao",
+    "mar": "tralaleo tralala",
+    "apr": "john pork",
+    "may": "zesty",
+    "jun": "black ballz",
+    "jul": "birthday",
+    "aug": "bgmi",
+    "sept": "where the huzz at?",
+    "oct" : "chopped bitches bday",
+    "nov" : "fein",
+    "dec" : "xmas"
+}
 
-def func_feb(request):
-    return HttpResponse("this is febuary month")
+def func_month_number(response, month):
+    months = list(monthly_challenges.keys())
+    if month > len(months):
+        return HttpResponseNotFound("Invalid month number")
+    redirect_month = months[month - 1]
+    return redirect('/challenges/' + redirect_month)
+
+def func_month(response, month):
+    try:
+        txt_str = monthly_challenges[month]
+    except KeyError:
+        return HttpResponseNotFound("nope")
+
+    return HttpResponse(txt_str)
