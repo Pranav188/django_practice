@@ -16,6 +16,20 @@ monthly_challenges = {
     "dec" : "xmas"
 }
 
+def home_page(response):
+    list_of_months = ""
+    months = list(monthly_challenges.keys())
+    for month in months:
+        month_path = reverse('pranav_website', args=[month])
+        list_of_months += f'<li><a href = \'{month_path}\'>{month}</a></li>'
+
+    response_data = f'<ul>{list_of_months}</ul>'
+    return HttpResponse(response_data)
+
+
+
+
+
 def func_month_number(response, month):
     months = list(monthly_challenges.keys())
     if month > len(months):
@@ -27,7 +41,8 @@ def func_month_number(response, month):
 def func_month(response, month):
     try:
         txt_str = monthly_challenges[month]
+        txt_str_html = f"<h2>{txt_str}</h2>"
     except KeyError:
         return HttpResponseNotFound("nope")
 
-    return HttpResponse(txt_str)
+    return HttpResponse(txt_str_html)
