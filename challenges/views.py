@@ -6,18 +6,18 @@ from django.template.loader import render_to_string
 
 
 monthly_challenges = {
-    "jan": "no bitches?",
-    "feb": "lmao",
-    "mar": "tralaleo tralala",
-    "apr": "john pork",
+    "january": "no bitches?",
+    "february": "lmao",
+    "march": "tralaleo tralala",
+    "april": "john pork",
     "may": "zesty",
-    "jun": "black ballz",
-    "jul": "birthday",
-    "aug": "bgmi",
-    "sept": "where the huzz at?",
-    "oct" : "chopped bitches bday",
-    "nov" : "fein",
-    "dec" : "xmas"
+    "june": "black ballz",
+    "july": "birthday",
+    "august": "bgmi",
+    "september": "where the huzz at?",
+    "october" : "chopped bitches bday",
+    "november" : "fein",
+    "december" : "xmas"
 }
 
 def home_page(response):
@@ -45,7 +45,9 @@ def func_month_number(response, month):
 def func_month(request, month):
     try:
         txt_str = monthly_challenges[month]
-        return render(request, "challenges/challenge.html")
+        return render(request, "challenges/challenge.html", {
+            "text" : txt_str,
+            "month_name" : month.capitalize()
+        })
     except KeyError:
         return HttpResponseNotFound("nope")
-
