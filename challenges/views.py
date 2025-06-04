@@ -1,6 +1,10 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseNotFound
 from django.urls import reverse
+from django.template.loader import render_to_string
+
+
+
 monthly_challenges = {
     "jan": "no bitches?",
     "feb": "lmao",
@@ -38,11 +42,10 @@ def func_month_number(response, month):
     redirect_link = reverse('pranav_website', args=[redirect_month])
     return redirect(redirect_link)
 
-def func_month(response, month):
+def func_month(request, month):
     try:
         txt_str = monthly_challenges[month]
-        txt_str_html = f"<h2>{txt_str}</h2>"
+        return render(request, "challenges/challenge.html")
     except KeyError:
         return HttpResponseNotFound("nope")
 
-    return HttpResponse(txt_str_html)
