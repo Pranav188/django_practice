@@ -47,7 +47,7 @@ def func_month(request, month):
         txt_str = monthly_challenges[month]
         return render(request, "challenges/challenge.html", {
             "text" : txt_str,
-            "month_name" : month.capitalize()
+            "month_name" : month
         })
     except KeyError:
         return HttpResponseNotFound("nope")
