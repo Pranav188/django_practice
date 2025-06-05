@@ -5,6 +5,8 @@
     {% endblock %}
 
     {%block content%}
+        {% include "challenges\includes\header.html" %}
+
     <h2>Welcome to {{month_name | title}} Challenge</h2>
     {% if text is not None%}
     <h2>{{ text | capfirst}}</h2>
