@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.urls import reverse
 from django.template.loader import render_to_string
 
@@ -47,4 +47,5 @@ def func_month(request, month):
             "month_name" : month
         })
     except KeyError:
-        return HttpResponseNotFound("nope")
+        res = render_to_string('404.html')
+        return HttpResponseNotFound(res)
