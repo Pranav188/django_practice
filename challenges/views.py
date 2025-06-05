@@ -13,22 +13,19 @@ monthly_challenges = {
     "may": "zesty",
     "june": "black ballz",
     "july": "birthday",
-    "august": "bgmi",
+    "august": "no_video_games",
     "september": "where the huzz at?",
     "october" : "chopped bitches bday",
     "november" : "fein",
-    "december" : "xmas"
+    "december" : None
 }
 
-def home_page(response):
+def home_page(request):
     list_of_months = ""
     months = list(monthly_challenges.keys())
-    for month in months:
-        month_path = reverse('pranav_website', args=[month])
-        list_of_months += f'<li><a href = \'{month_path}\'>{month}</a></li>'
-
-    response_data = f'<ul>{list_of_months}</ul>'
-    return HttpResponse(response_data)
+    return render(request, "challenges/index.html",{
+        'month_name': months
+    })
 
 
 
